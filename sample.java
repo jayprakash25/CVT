@@ -3,18 +3,6 @@ import java.util.List;
 
 public class sample {
 
-    // inner class to represent each token
-    // type - categorize syntax
-    private static class Token {
-        String type;
-        String value;
-
-        Token(String type, String value) {
-            this.type = type;
-            this.value = value;
-        }
-    }
-
     // fn to create list of tokens
     private static List<Token> tokensize(String code) {
         List<Token> tokens = new ArrayList<>();
@@ -23,7 +11,8 @@ public class sample {
 
         for (String word : words) {
             if (!word.isEmpty()) {
-                tokens.add(new Token("WORD", word));
+                String type = TokenType.determineTokenType(word);
+                tokens.add(new Token(type, word));
             }
         }
 
@@ -37,5 +26,10 @@ public class sample {
 
         // lexical analysis
         List<Token> tokens = tokensize(code);
+
+        for (Token t : tokens) {
+            System.out.println(t.type + " - " + t.value);
+        }
+        // System.out.print(tokens.get(1).value);
     }
 }
